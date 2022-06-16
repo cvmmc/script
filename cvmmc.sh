@@ -82,7 +82,7 @@ main() {
 		java $SERVER_ARGS_PRE -jar $SERVER_JAR $SERVER_ARGS_POST
 		if [ "$GIT_AUTOUPDATE" = true ]; then
 			echo "Updating files"
-			git commit -am "Update server state - $(date +\"%Y-%m-%dT%H:%M:%S%z\")"
+			git commit -am "Update server state - $(date --iso-8601=seconds)"
 			git push
 		fi
 		echo "Restarting server in 5 seconds"
