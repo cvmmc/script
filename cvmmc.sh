@@ -30,17 +30,17 @@ install_deps() {
 		echo "Installing dependencies"
 		check_distro
 		if [ "${OS,,}" == "debian" ] || [ "${OS,,}" == "ubuntu" || [ "${OS,,}" == "devuan" ]; then
-			apt install openjdk-17-jre git -y
+			sudo apt install openjdk-17-jre git -y
 		elif [ "${OS,,}" == "almalinux" ]; then
-			dnf install java-17-openjdk git -y
+			sudo dnf install java-17-openjdk git -y
 		elif [ "${OS,,}" == "alpine" ]; then
-			apk add openjdk17 git
+			sudo apk add openjdk17 git
 		elif [ "${OS,,}" == "fedora" ] || [ "${OS,,}" == "centos" ]; then
-			yum install java-17-openjdk git -y
+			sudo yum install java-17-openjdk git -y
 		elif [ "${OS,,}" == "arch" ]; then
-			pacman -S jre17-openjdk git --noconf
+			sudo pacman -S jre17-openjdk git --noconf
 		elif [ "${OS,,}" == "artix" ]; then
-			pacman -S jre-openjdk git --noconf
+			sudo pacman -S jre-openjdk git --noconf
 		else
 			echo "Distribution not supported, please report this."
 			echo 'Make sure to include output of "cat /etc/os-release" and "lsb_release -a"'
@@ -89,11 +89,6 @@ main() {
 		sleep 5
 	done
 }
-
-if [ "$EUID" -ne 0 ]; then
-	echo "This script must be ran as root."
-	exit 1
-fi
 
 if [ "$GIT_AUTOUPDATE" = true ]; then
 	if [ -z "$GIT_AUTH_TOKEN" ]; then
